@@ -26,6 +26,10 @@ io.on('connection',(socket) =>{
         console.log('A user disconnected');
     });
 });
+setInterval(() => {
+    const rows = db.prepare('SELECT * FROM plazas').all();
+    io.emit('parkingData', rows);
+},3000)
 
 app.get("/users", (req, res) => {
     const query = db.prepare('SELECT * FROM users');

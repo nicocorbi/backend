@@ -9,9 +9,9 @@
 <body>
     <script>
         const socket = io();
-        socket.on('connection', () => {
-            console.log('conectado al servidor')
-        })
+        socket.on('connected', (mensaje) => {
+            console.log('mensaje');
+        });
     </script>
     
 </body>
