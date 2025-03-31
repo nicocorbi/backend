@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frutas</title>
+</head>
+<body>
+    <form id="fruta-form">
+    <label for ="fruta">Fruta:</label>
+    <input type="text"id = "fruta" name="fruta"required>
+    <button type = "submit">Enviar</button>
+    </form>
+    <script>
+        obtenerfrutas();
+        const formulario = document.querySelector('#fruta-form');
+        const listaFrutas = document.querySelector('#lista-frutas');
+        formulario.addEventListener("submit", function(event){
+            event.preventDefault();
+            const fruta = document.querySelector("#fruta").value;
+            console.log(fruta);
+            const opciones = {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json" 
+                },
+                body:JSON.stringify({fruta})
+            }
+            fetch("/frutas",opciones)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                alert(data);
+            })
+        })
+        const frutasDiccionario = {
+            "manzana":"🍏",
+        }
+        function obtenerfrutas(){
+            listaFrutas.innerHTML = "";
+            fetch("/frutas")
+            .then(response => response.json())
+            .then(frutas => {
+                frutas.forEach(fruta => {
+                    const li = document.createElement("li")
+                    li.innerText = frutasDiccionario[fruta] || fruta;
+                    listafrutas.appedChild(li)
+                })
+            })
+        }
+    </script> 
+</body>
+</html>
+// sustituir array por base de datos de sqlite 
+// volver al parking y hacer una pagina donde podemos cambiar el estado de disponible o no 
+// disponible de una plaza
